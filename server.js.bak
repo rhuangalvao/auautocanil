@@ -10,7 +10,7 @@ try {
 var WebSocketServer = require('websocket').server;
 var http = require('http');
 var fs = require('fs');
-var port = 8880;
+var port = 3000;
 
 (function main() {
 	var http_server = http.createServer(httpServerRequest);

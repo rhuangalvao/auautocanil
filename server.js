@@ -13,9 +13,9 @@ var fs = require('fs');
 var port = 3000;
 
 (function main() {
-	var http_server = http.createServer(httpServerRequest);
-	http_server.listen(port, function() {
-		console.log("Listening on port " + port);
+	var http_server = http.createServer(httpServerRequest);	
+	http_server.listen(process.env.PORT || port, function() {
+		console.log("Listening on port " + this.address().port);
 	});
 	var wsserver = new WebSocketServer({
 		httpServer: http_server,
