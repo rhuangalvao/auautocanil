@@ -1,0 +1,694 @@
+<html lang="pt-br">
+<meta charset="UTF-8">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+
+<!-- <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+<!-- <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-auth.js"></script> -->
+<script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
+<style>
+  body { overflow-x: hidden; }
+</style>
+
+<div class="row">
+  <div class="col-sm">
+  </div>
+  <div class="col-sm">
+    <h1 style="text-align: center;">AuAutoCanil</h1>
+  </div>
+  <div class="col-sm" style="text-align: right; margin-top: 10; margin-right: 10;">
+    <a href='/index.html' type="button" class="btn btn-success">Câmera</a>
+  </div>
+</div>
+
+<hr>
+<div class="row">
+  <div class="card" style="width: 24%;">
+    <img class="card-img-top" src="https://i.ibb.co/tYcGTfn/img-racao.png" width="200" height="200" alt="img-racao" border="0">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title">Ração</h5>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#logsRacaoModal">Histórico</button>
+        </div>
+      </div>
+      <p class="card-text">Libere ração para seu animalzinho da onde estiver ou então programe um horário específico para liberar a ração</p>
+      <!-- Modal -->
+      <div class="modal fade" id="logsRacaoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Logs Ração</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="logsRacao" class="modal-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush" style="margin: 0 auto;">
+      <li class="list-group-item">
+        <input type="number" min=1 max=60 id="racao_duracao" name="racao_duracao" style="width: 60px;"> Tempo (s)
+      </li>
+      <li class="list-group-item"><button type="button" id="racao" class="btn btn-primary">Liberar Ração</button></li>
+      <li class="list-group-item"><input type="time" id="racao_hora1" name="racao_hora1"></li>
+      <li class="list-group-item"><input type="time" id="racao_hora2" name="racao_hora2"></li>
+      <li class="list-group-item"><input type="time" id="racao_hora3" name="racao_hora3"></li>
+      <li class="list-group-item"><input type="time" id="racao_hora4" name="racao_hora4"></li>
+      <li class="list-group-item"><input type="time" id="racao_hora5" name="racao_hora5"></li>
+      <li class="list-group-item"><input type="time" id="racao_hora6" name="racao_hora6"></li>
+    </ul>
+  </div>
+
+  <div class="card" style="width: 25%;">
+    <img class="card-img-top" src="https://i.ibb.co/HxTgWZy/img-cortina.jpg" width="200" height="200" alt="img-cortina" border="0">
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title">Cortina</h5>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#logsCortinaModal">Histórico</button>
+        </div>
+      </div>
+      <p class="card-text">Controle as cortinas do canil para proteger seu animal de ventos e chuvas</p>
+      <!-- Modal -->
+      <div class="modal fade" id="logsCortinaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Logs Cortina</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="logsCortina" class="modal-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush" style="margin: 0 auto;">
+      <li class="list-group-item" id="valor_cortina"></li>
+      <li class="list-group-item"><button type="button" id="cortina" class="btn btn-primary">Abrir/Fechar</button></li>
+      <li class="list-group-item"><input type="time" id="cortina_abrir_hora1" name="cortina_abrir_hora1"><small> Abrir</small></li>
+      <li class="list-group-item"><input type="time" id="cortina_fechar_hora1" name="cortina_fechar_hora1"><small> Fechar</small></li>
+      <li class="list-group-item"><input type="time" id="cortina_abrir_hora2" name="cortina_abrir_hora2"><small> Abrir</small></li>
+      <li class="list-group-item"><input type="time" id="cortina_fechar_hora2" name="cortina_fechar_hora2"><small> Fechar</small></li>
+      <li class="list-group-item"><input type="time" id="cortina_abrir_hora3" name="cortina_abrir_hora3"><small> Abrir</small></li>
+      <li class="list-group-item"><input type="time" id="cortina_fechar_hora3" name="cortina_fechar_hora3"><small> Fechar</small></li>
+    </ul>
+  </div>
+
+  <div class="card" style="width: 25%;">
+    <img class="card-img-top" src="https://i.ibb.co/VWymVrS/img-lampada.jpg" width="200" height="200" alt="img-lampada" border="0">
+
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title">Lâmpada</h5>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#logsLampadaModal">Histórico</button>
+        </div>
+      </div>
+      <p class="card-text">Controle a iluminação do lugar do seu animalzinho para ele se sentir mais seguro</p>
+      <!-- Modal -->
+      <div class="modal fade" id="logsLampadaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Logs Lâmpada</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="logsLampada" class="modal-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <ul class="list-group list-group-flush" style="margin: 0 auto;">
+      <li class="list-group-item" id="valor_lampada"></li>
+      <li class="list-group-item"><button type="button"  id="lampada" class="btn btn-primary">Acender/Apagar</button></li>
+      <li class="list-group-item"><input type="time" id="lampada_acender_hora1" name="lampada_acender_hora1"><small> Acender</small></li>
+      <li class="list-group-item"><input type="time" id="lampada_apagar_hora1" name="lampada_apagar_hora1"><small> Apagar</small></li>
+      <li class="list-group-item"><input type="time" id="lampada_acender_hora2" name="lampada_acender_hora2"><small> Acender</small></li>
+      <li class="list-group-item"><input type="time" id="lampada_apagar_hora2" name="lampada_apagar_hora2"><small> Apagar</small></li>
+      <li class="list-group-item"><input type="time" id="lampada_acender_hora3" name="lampada_acender_hora3"><small> Acender</small></li>
+      <li class="list-group-item"><input type="time" id="lampada_apagar_hora3" name="lampada_apagar_hora3"><small> Apagar</small></li>
+    </ul>
+  </div>
+  <div class="card" style="width: 25%;">
+  <img id="aa_porta" style='display: none;' class="card-img-top" src="https://i.ibb.co/tzJmMBn/aa-porta.png" width="200" height="200" alt="aa-porta" border="0">
+  <img id="af_porta" style='display: none;' class="card-img-top" src="https://i.ibb.co/3T3vwZ7/af-porta.png" width="200" height="200" alt="af-porta" border="0">
+  <img id="fa_porta" style='display: none;' class="card-img-top" src="https://i.ibb.co/ChrtFxg/fa-porta.png" width="200" height="200" alt="fa-porta" border="0">
+  <img id="ff_porta" style='display: none;' class="card-img-top" src="https://i.ibb.co/x7NcgJH/ff-porta.png" width="200" height="200" alt="ff-porta" border="0">
+    <div class="card-body">
+      <div class="row">
+        <div class="col">
+          <h5 class="card-title">Porta</h5>
+        </div>
+        <div class="col text-right">
+          <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#logsPortaModal">Histórico</button>
+        </div>
+      </div>
+      <p class="card-text">Controle a entrada e saída do seu companheiro</p>
+      <!-- Modal -->
+      <div class="modal fade" id="logsPortaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Logs Porta</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div id="logsPorta" class="modal-body"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="row">
+      <ul class="list-group list-group-flush" style="margin: 0 auto;">
+        <li class="list-group-item">Acesso área interna</li>
+        <li class="list-group-item" id="valor_porta_interna"></li>
+        <li class="list-group-item"><button type="button" id="porta_interna" class="btn btn-primary">Abrir/Fechar</button></li>
+        <li class="list-group-item"><input type="time" id="porta_interna_abrir_hora1" name="porta_interna_abrir_hora1"><small> Abrir</small></li>
+        <li class="list-group-item"><input type="time" id="porta_interna_fechar_hora4" name="porta_interna_fechar_hora4"><small> Fechar</small></li>
+        <li class="list-group-item"><input type="time" id="porta_interna_abrir_hora2" name="porta_interna_abrir_hora2"><small> Abrir</small></li>
+        <li class="list-group-item"><input type="time" id="porta_interna_fechar_hora5" name="porta_interna_fechar_hora5"><small> Fechar</small></li>
+        <li class="list-group-item"><input type="time" id="porta_interna_abrir_hora3" name="porta_interna_abrir_hora3"><small> Abrir</small></li>
+        <li class="list-group-item"><input type="time" id="porta_interna_fechar_hora6" name="porta_interna_fechar_hora6"><small> Fechar</small></li>
+      </ul>
+	  <ul class="list-group list-group-flush" style="margin: 0 auto;">
+        <li class="list-group-item">Acesso área externa</li>
+        <li class="list-group-item" id="valor_porta_externa"></li>
+        <li class="list-group-item"><button type="button" id="porta_externa" class="btn btn-primary">Abrir/Fechar</button></li>
+        <li class="list-group-item"><input type="time" id="porta_externa_abrir_hora1" name="porta_externa_abrir_hora1"><small> Abrir</small></li>
+        <li class="list-group-item"><input type="time" id="porta_externa_fechar_hora4" name="porta_externa_fechar_hora4"><small> Fechar</small></li>
+        <li class="list-group-item"><input type="time" id="porta_externa_abrir_hora2" name="porta_externa_abrir_hora2"><small> Abrir</small></li>
+        <li class="list-group-item"><input type="time" id="porta_externa_fechar_hora5" name="porta_externa_fechar_hora5"><small> Fechar</small></li>
+        <li class="list-group-item"><input type="time" id="porta_externa_abrir_hora3" name="porta_externa_abrir_hora3"><small> Abrir</small></li>
+        <li class="list-group-item"><input type="time" id="porta_externa_fechar_hora6" name="porta_externa_fechar_hora6"><small> Fechar</small></li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+
+<script type="text/javascript">
+
+	function att_img_porta(status_porta_interna, status_porta_externa){
+		if(status_porta_interna == "Aberta" && status_porta_externa == "Aberta"){
+			$('#aa_porta').show();
+			$('#af_porta').hide();
+			$('#fa_porta').hide();
+			$('#ff_porta').hide();
+		}else if(status_porta_interna == "Aberta" && status_porta_externa == "Fechada"){
+			$('#aa_porta').hide();
+			$('#af_porta').show();
+			$('#fa_porta').hide();
+			$('#ff_porta').hide();
+		}else if(status_porta_interna == "Fechada" && status_porta_externa == "Aberta"){
+			$('#aa_porta').hide();
+			$('#af_porta').hide();
+			$('#fa_porta').show();
+			$('#ff_porta').hide();
+		}else if(status_porta_interna == "Fechada" && status_porta_externa == "Fechada"){
+			$('#aa_porta').hide();
+			$('#af_porta').hide();
+			$('#fa_porta').hide();
+			$('#ff_porta').show();
+		}else{
+			$('#aa_porta').hide();
+			$('#af_porta').hide();
+			$('#fa_porta').hide();
+			$('#ff_porta').hide();
+		}
+	}
+
+  var config = {
+    apiKey: "AIzaSyCWFiYtT9mt3Vp-Xdie-yqYJD0SLEOw1eI",
+    databaseURL: "https://auautocanil-default-rtdb.firebaseio.com",
+  };
+  firebase.initializeApp(config);
+
+  function gerarLog(tipo, aux){
+    var data = new Date();
+    var dia     = data.getDate();           // 1-31
+    var mes     = data.getMonth();          // 0-11 (zero=janeiro)
+    var ano4    = data.getFullYear();       // 4 dígitos
+    var hora    = data.getHours();          // 0-23
+    var min     = data.getMinutes();        // 0-59
+    var seg     = data.getSeconds();        // 0-59
+    // Formata a data e a hora (note o mês + 1)
+    var str_data = dia + '/' + (mes+1) + '/' + ano4;
+    var str_hora = hora + ':' + min + ':' + seg;
+
+    firebase.database().ref(tipo).push({
+      log: aux + " " + str_data + " " + str_hora
+    });
+  }
+
+// FUNCOES DA CORTINA--------------------------------
+  // QUANDO CLICAR NO BOTAO ALTERA O STATUS DA CORTINA -------------------------------
+  document.getElementById('cortina').onclick = function(){
+    var status;
+    firebase.database().ref('cortina_status').on('value', function(snapshot){
+     status = snapshot.val().Cortina;
+    });
+    if(status == "Aberta"){
+      console.log("Cortina Fechada");
+      gerarLog("cortina_log", "Fechada");
+      firebase.database().ref('cortina_status').set({
+        Cortina: "Fechada"
+      });
+    }else{
+      console.log("Cortina aberta");
+        gerarLog("cortina_log", "Aberta");
+      firebase.database().ref('cortina_status').set({
+        Cortina: "Aberta"
+      });
+    }
+  }
+
+  // INICIALIZA AS VARIAVEIS COM O STATUS E AS HORAS JA SALVAS ---------------------------
+  firebase.database().ref('cortina_status').on('value', function(snapshot){
+    document.getElementById('valor_cortina').innerHTML = snapshot.val().Cortina;
+  });
+
+  firebase.database().ref('cortina_abrir_hora1').on('value', function(snapshot){
+    document.getElementById('cortina_abrir_hora1').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('cortina_abrir_hora2').on('value', function(snapshot){
+    document.getElementById('cortina_abrir_hora2').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('cortina_abrir_hora3').on('value', function(snapshot){
+    document.getElementById('cortina_abrir_hora3').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('cortina_fechar_hora1').on('value', function(snapshot){
+    document.getElementById('cortina_fechar_hora1').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('cortina_fechar_hora2').on('value', function(snapshot){
+    document.getElementById('cortina_fechar_hora2').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('cortina_fechar_hora3').on('value', function(snapshot){
+    document.getElementById('cortina_fechar_hora3').value = snapshot.val().Hora;
+  });
+
+// ATUALIZA AS HORAS NO BANCO QUANDO MODIFICADAS NA PAGINA ---------------------------
+  document.getElementById('cortina_abrir_hora1').onchange = function(){
+    firebase.database().ref('cortina_abrir_hora1').set({
+      Hora: document.getElementById('cortina_abrir_hora1').value
+    });
+  }
+  document.getElementById('cortina_abrir_hora2').onchange = function(){
+    firebase.database().ref('cortina_abrir_hora2').set({
+      Hora: document.getElementById('cortina_abrir_hora2').value
+    });
+  }
+  document.getElementById('cortina_abrir_hora3').onchange = function(){
+    firebase.database().ref('cortina_abrir_hora3').set({
+      Hora: document.getElementById('cortina_abrir_hora3').value
+    });
+  }
+  document.getElementById('cortina_fechar_hora1').onchange = function(){
+    firebase.database().ref('cortina_fechar_hora1').set({
+      Hora: document.getElementById('cortina_fechar_hora1').value
+    });
+  }
+  document.getElementById('cortina_fechar_hora2').onchange = function(){
+    firebase.database().ref('cortina_fechar_hora2').set({
+      Hora: document.getElementById('cortina_fechar_hora2').value
+    });
+  }
+  document.getElementById('cortina_fechar_hora3').onchange = function(){
+    firebase.database().ref('cortina_fechar_hora3').set({
+      Hora: document.getElementById('cortina_fechar_hora3').value
+    });
+  }
+
+// FUNCOES DA LAMPADA--------------------------------------------------
+  document.getElementById('lampada').onclick = function(){
+    var status;
+    firebase.database().ref('lampada_status').on('value', function(snapshot){
+     status = snapshot.val().Lampada;
+    });
+    if(status == "Acesa"){
+      console.log("Apagar lampada")
+      gerarLog("lampada_log", "Apagada");
+      firebase.database().ref('lampada_status').set({
+        Lampada: "Apagada"
+      });
+    }else{
+      console.log("Acender Lampada")
+      gerarLog("lampada_log", "Acesa");
+      firebase.database().ref('lampada_status').set({
+        Lampada: "Acesa"
+      });
+    }
+  }
+  // INICIALIZA AS VARIAVEIS COM O STATUS E AS HORAS JA SALVAS ---------------------------
+  firebase.database().ref('lampada_status').on('value', function(snapshot){
+    document.getElementById('valor_lampada').innerHTML = snapshot.val().Lampada;
+  });
+
+  firebase.database().ref('lampada_acender_hora1').on('value', function(snapshot){
+    document.getElementById('lampada_acender_hora1').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('lampada_acender_hora2').on('value', function(snapshot){
+    document.getElementById('lampada_acender_hora2').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('lampada_acender_hora3').on('value', function(snapshot){
+    document.getElementById('lampada_acender_hora3').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('lampada_apagar_hora1').on('value', function(snapshot){
+    document.getElementById('lampada_apagar_hora1').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('lampada_apagar_hora2').on('value', function(snapshot){
+    document.getElementById('lampada_apagar_hora2').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('lampada_apagar_hora3').on('value', function(snapshot){
+    document.getElementById('lampada_apagar_hora3').value = snapshot.val().Hora;
+  });
+
+  // ATUALIZA AS HORAS NO BANCO QUANDO MODIFICADAS NA PAGINA ---------------------------
+  document.getElementById('lampada_acender_hora1').onchange = function(){
+    firebase.database().ref('lampada_acender_hora1').set({
+      Hora: document.getElementById('lampada_acender_hora1').value
+    });
+  }
+  document.getElementById('lampada_acender_hora2').onchange = function(){
+    firebase.database().ref('lampada_acender_hora2').set({
+      Hora: document.getElementById('lampada_acender_hora2').value
+    });
+  }
+  document.getElementById('lampada_acender_hora3').onchange = function(){
+    firebase.database().ref('lampada_acender_hora3').set({
+      Hora: document.getElementById('lampada_acender_hora3').value
+    });
+  }
+  document.getElementById('lampada_apagar_hora1').onchange = function(){
+    firebase.database().ref('lampada_apagar_hora1').set({
+      Hora: document.getElementById('lampada_apagar_hora1').value
+    });
+  }
+  document.getElementById('lampada_apagar_hora2').onchange = function(){
+    firebase.database().ref('lampada_apagar_hora2').set({
+      Hora: document.getElementById('lampada_apagar_hora2').value
+    });
+  }
+  document.getElementById('lampada_apagar_hora3').onchange = function(){
+    firebase.database().ref('lampada_apagar_hora3').set({
+      Hora: document.getElementById('lampada_apagar_hora3').value
+    });
+  }
+
+// FUNCOES DA RACAO----------------------------------------------------
+  document.getElementById('racao').onclick = function(){
+    gerarLog("racao_log", "Liberada");
+    firebase.database().ref('racao').set({
+      Liberar: "sim"
+    });
+    setTimeout(() => {
+      firebase.database().ref('racao').set({
+        Liberar: "nao"
+      });
+    }, 2000);
+  }
+
+// INICIALIZA AS VARIAVEIS COM O STATUS E AS HORAS JA SALVAS ---------------------------
+  firebase.database().ref('racao_duracao').on('value', function(snapshot){
+    document.getElementById('racao_duracao').value = snapshot.val().Duracao;
+  });
+
+  firebase.database().ref('racao_hora1').on('value', function(snapshot){
+    document.getElementById('racao_hora1').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('racao_hora2').on('value', function(snapshot){
+    document.getElementById('racao_hora2').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('racao_hora3').on('value', function(snapshot){
+    document.getElementById('racao_hora3').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('racao_hora4').on('value', function(snapshot){
+    document.getElementById('racao_hora4').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('racao_hora5').on('value', function(snapshot){
+    document.getElementById('racao_hora5').value = snapshot.val().Hora;
+  });
+  firebase.database().ref('racao_hora6').on('value', function(snapshot){
+    document.getElementById('racao_hora6').value = snapshot.val().Hora;
+  });
+
+// ATUALIZA AS HORAS NO BANCO QUANDO MODIFICADAS NA PAGINA ---------------------------
+  document.getElementById('racao_duracao').onchange = function(){
+    firebase.database().ref('racao_duracao').set({
+      Duracao: document.getElementById('racao_duracao').value
+    });
+  }
+  document.getElementById('racao_hora1').onchange = function(){
+    firebase.database().ref('racao_hora1').set({
+      Hora: document.getElementById('racao_hora1').value
+    });
+  }
+  document.getElementById('racao_hora2').onchange = function(){
+    firebase.database().ref('racao_hora2').set({
+      Hora: document.getElementById('racao_hora2').value
+    });
+  }
+  document.getElementById('racao_hora3').onchange = function(){
+    firebase.database().ref('racao_hora3').set({
+      Hora: document.getElementById('racao_hora3').value
+    });
+  }
+  document.getElementById('racao_hora4').onchange = function(){
+    firebase.database().ref('racao_hora4').set({
+      Hora: document.getElementById('racao_hora4').value
+    });
+  }
+  document.getElementById('racao_hora5').onchange = function(){
+    firebase.database().ref('racao_hora5').set({
+      Hora: document.getElementById('racao_hora5').value
+    });
+  }
+  document.getElementById('racao_hora6').onchange = function(){
+    firebase.database().ref('racao_hora6').set({
+      Hora: document.getElementById('racao_hora6').value
+    });
+  }
+
+  // FUNCOES DA PORTA--------------------------------
+    // QUANDO CLICAR NO BOTAO ALTERA O STATUS DA PORTA INTERNA -------------------------------
+    document.getElementById('porta_interna').onclick = function(){
+      var status;
+      firebase.database().ref('porta_interna_status').on('value', function(snapshot){
+       status = snapshot.val().Interna;
+      });
+      if(status == "Aberta"){
+        console.log("Porta Interna Fechada");
+        gerarLog("porta_log", "Fechado acesso à área interna");
+        firebase.database().ref('porta_interna_status').set({
+          Interna: "Fechada"
+        });
+      }else{
+        console.log("Porta Interna aberta");
+          gerarLog("porta_log", "Aberto acesso à área interna");
+        firebase.database().ref('porta_interna_status').set({
+          Interna: "Aberta"
+        });
+      }
+    }
+
+    // QUANDO CLICAR NO BOTAO ALTERA O STATUS DA PORTA EXTERNA -------------------------------
+    document.getElementById('porta_externa').onclick = function(){
+      var status;
+      firebase.database().ref('porta_externa_status').on('value', function(snapshot){
+       status = snapshot.val().Externa;
+      });
+      if(status == "Aberta"){
+        console.log("Porta Externa Fechada");
+        gerarLog("porta_log", "Fechado acesso à área externa");
+        firebase.database().ref('porta_externa_status').set({
+          Externa: "Fechada"
+        });
+      }else{
+        console.log("Porta Externa aberta");
+          gerarLog("porta_log", "Aberto acesso à área externa");
+        firebase.database().ref('porta_externa_status').set({
+          Externa: "Aberta"
+        });
+      }
+    }
+
+    // INICIALIZA e atualiza AS VARIAVEIS COM O STATUS E AS HORAS JA SALVAS ---------------------------
+    var porta_interna_s = ""
+    var porta_externa_s = ""
+
+    firebase.database().ref('porta_interna_status').on('value', function(snapshot){
+      document.getElementById('valor_porta_interna').innerHTML = snapshot.val().Interna;
+      porta_interna_s = snapshot.val().Interna;
+      att_img_porta(porta_interna_s, porta_externa_s);
+    });
+    firebase.database().ref('porta_externa_status').on('value', function(snapshot){
+      document.getElementById('valor_porta_externa').innerHTML = snapshot.val().Externa;
+      porta_externa_s = snapshot.val().Externa;
+      att_img_porta(porta_interna_s, porta_externa_s);
+    });
+
+    //INICIALIZA AS HORAS DA PORTA INTERNA
+
+    firebase.database().ref('porta_interna_abrir_hora1').on('value', function(snapshot){
+      document.getElementById('porta_interna_abrir_hora1').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_interna_abrir_hora2').on('value', function(snapshot){
+      document.getElementById('porta_interna_abrir_hora2').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_interna_abrir_hora3').on('value', function(snapshot){
+      document.getElementById('porta_interna_abrir_hora3').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_interna_fechar_hora4').on('value', function(snapshot){
+      document.getElementById('porta_interna_fechar_hora4').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_interna_fechar_hora5').on('value', function(snapshot){
+      document.getElementById('porta_interna_fechar_hora5').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_interna_fechar_hora6').on('value', function(snapshot){
+      document.getElementById('porta_interna_fechar_hora6').value = snapshot.val().Hora;
+    });
+    //INICIALIZA AS HORAS DA PORTA EXTERNA
+
+    firebase.database().ref('porta_externa_abrir_hora1').on('value', function(snapshot){
+      document.getElementById('porta_externa_abrir_hora1').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_externa_abrir_hora2').on('value', function(snapshot){
+      document.getElementById('porta_externa_abrir_hora2').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_externa_abrir_hora3').on('value', function(snapshot){
+      document.getElementById('porta_externa_abrir_hora3').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_externa_fechar_hora4').on('value', function(snapshot){
+      document.getElementById('porta_externa_fechar_hora4').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_externa_fechar_hora5').on('value', function(snapshot){
+      document.getElementById('porta_externa_fechar_hora5').value = snapshot.val().Hora;
+    });
+    firebase.database().ref('porta_externa_fechar_hora6').on('value', function(snapshot){
+      document.getElementById('porta_externa_fechar_hora6').value = snapshot.val().Hora;
+    });
+
+  // ATUALIZA AS HORAS NO BANCO QUANDO MODIFICADAS NA PAGINA ---------------------------
+    //PORTA INTERNA --------------------------------
+    document.getElementById('porta_interna_abrir_hora1').onchange = function(){
+      firebase.database().ref('porta_interna_abrir_hora1').set({
+        Hora: document.getElementById('porta_interna_abrir_hora1').value
+      });
+    }
+    document.getElementById('porta_interna_abrir_hora2').onchange = function(){
+      firebase.database().ref('porta_interna_abrir_hora2').set({
+        Hora: document.getElementById('porta_interna_abrir_hora2').value
+      });
+    }
+    document.getElementById('porta_interna_abrir_hora3').onchange = function(){
+      firebase.database().ref('porta_interna_abrir_hora3').set({
+        Hora: document.getElementById('porta_interna_abrir_hora3').value
+      });
+    }
+    document.getElementById('porta_interna_fechar_hora4').onchange = function(){
+      firebase.database().ref('porta_interna_fechar_hora4').set({
+        Hora: document.getElementById('porta_interna_fechar_hora4').value
+      });
+    }
+    document.getElementById('porta_interna_fechar_hora5').onchange = function(){
+      firebase.database().ref('porta_interna_fechar_hora5').set({
+        Hora: document.getElementById('porta_interna_fechar_hora5').value
+      });
+    }
+    document.getElementById('porta_interna_fechar_hora6').onchange = function(){
+      firebase.database().ref('porta_interna_fechar_hora6').set({
+        Hora: document.getElementById('porta_interna_fechar_hora6').value
+      });
+    }
+
+    //PORTA EXTERNA --------------------------------
+
+    document.getElementById('porta_externa_abrir_hora1').onchange = function(){
+      firebase.database().ref('porta_externa_abrir_hora1').set({
+        Hora: document.getElementById('porta_externa_abrir_hora1').value
+      });
+    }
+    document.getElementById('porta_externa_abrir_hora2').onchange = function(){
+      firebase.database().ref('porta_externa_abrir_hora2').set({
+        Hora: document.getElementById('porta_externa_abrir_hora2').value
+      });
+    }
+    document.getElementById('porta_externa_abrir_hora3').onchange = function(){
+      firebase.database().ref('porta_externa_abrir_hora3').set({
+        Hora: document.getElementById('porta_externa_abrir_hora3').value
+      });
+    }
+    document.getElementById('porta_externa_fechar_hora4').onchange = function(){
+      firebase.database().ref('porta_externa_fechar_hora4').set({
+        Hora: document.getElementById('porta_externa_fechar_hora4').value
+      });
+    }
+    document.getElementById('porta_externa_fechar_hora5').onchange = function(){
+      firebase.database().ref('porta_externa_fechar_hora5').set({
+        Hora: document.getElementById('porta_externa_fechar_hora5').value
+      });
+    }
+    document.getElementById('porta_externa_fechar_hora6').onchange = function(){
+      firebase.database().ref('porta_externa_fechar_hora6').set({
+        Hora: document.getElementById('porta_externa_fechar_hora6').value
+      });
+    }
+
+//HISTORICO DE CADA FUNCIONALIDADE Logs
+
+  firebase.database().ref('racao_log').on('value', function(snapshot){
+    logsRacao.innerHTML = '';
+    snapshot.forEach(function (item){
+      var li = document.createElement('li');
+      li.appendChild(document.createTextNode(item.val().log));
+      logsRacao.appendChild(li);
+    });
+  });
+
+  firebase.database().ref('cortina_log').on('value', function(snapshot){
+    logsCortina.innerHTML = '';
+    snapshot.forEach(function (item){
+      var li = document.createElement('li');
+      li.appendChild(document.createTextNode(item.val().log));
+      logsCortina.appendChild(li);
+    });
+  });
+
+  firebase.database().ref('lampada_log').on('value', function(snapshot){
+    logsLampada.innerHTML = '';
+    snapshot.forEach(function (item){
+      var li = document.createElement('li');
+      li.appendChild(document.createTextNode(item.val().log));
+      logsLampada.appendChild(li);
+    });
+  });
+
+  firebase.database().ref('porta_log').on('value', function(snapshot){
+    logsPorta.innerHTML = '';
+    snapshot.forEach(function (item){
+      var li = document.createElement('li');
+      li.appendChild(document.createTextNode(item.val().log));
+      logsPorta.appendChild(li);
+    });
+  });
+
+</script>
