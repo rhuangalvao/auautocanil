@@ -13,6 +13,12 @@
 
 <style>
   body { overflow-x: hidden; }
+  .logsStyle {
+      height: 600px;
+      border-radius: 10px;
+      padding: 20px;
+      overflow: auto;
+    }
 </style>
 
 <div class="row">
@@ -41,9 +47,9 @@
       </div>
       <p class="card-text">Libere ração para seu animalzinho da onde estiver ou então programe um horário específico para liberar a ração</p>
       <!-- Modal -->
-      <div class="modal fade" id="logsRacaoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
+      <div class="modal fade " id="logsRacaoModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog " role="document">
+          <div class="modal-content logsStyle">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Logs Ração</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -85,7 +91,7 @@
       <!-- Modal -->
       <div class="modal fade" id="logsCortinaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+          <div class="modal-content logsStyle">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Logs Cortina</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -125,7 +131,7 @@
       <!-- Modal -->
       <div class="modal fade" id="logsLampadaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+          <div class="modal-content logsStyle">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Logs Lâmpada</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -166,7 +172,7 @@
       <!-- Modal -->
       <div class="modal fade" id="logsPortaModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
         <div class="modal-dialog" role="document">
-          <div class="modal-content">
+          <div class="modal-content logsStyle">
             <div class="modal-header">
               <h5 class="modal-title" id="exampleModalLabel">Logs Porta</h5>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
@@ -657,36 +663,68 @@
 
   firebase.database().ref('racao_log').on('value', function(snapshot){
     logsRacao.innerHTML = '';
+    var aux = [];
     snapshot.forEach(function (item){
+      aux.push(item.val().log);
+      // var li = document.createElement('li');
+      // li.appendChild(document.createTextNode(item.val().log));
+      // logsRacao.appendChild(li);
+    });
+    aux.reverse();
+    aux.forEach(function (i){
       var li = document.createElement('li');
-      li.appendChild(document.createTextNode(item.val().log));
+      li.appendChild(document.createTextNode(i));
       logsRacao.appendChild(li);
     });
   });
 
   firebase.database().ref('cortina_log').on('value', function(snapshot){
     logsCortina.innerHTML = '';
+    var aux = [];
     snapshot.forEach(function (item){
+      aux.push(item.val().log);
+      // var li = document.createElement('li');
+      // li.appendChild(document.createTextNode(item.val().log));
+      // logsCortina.appendChild(li);
+    });
+    aux.reverse();
+    aux.forEach(function (i){
       var li = document.createElement('li');
-      li.appendChild(document.createTextNode(item.val().log));
+      li.appendChild(document.createTextNode(i));
       logsCortina.appendChild(li);
     });
   });
 
   firebase.database().ref('lampada_log').on('value', function(snapshot){
     logsLampada.innerHTML = '';
+    var aux = [];
     snapshot.forEach(function (item){
+      aux.push(item.val().log);
+      // var li = document.createElement('li');
+      // li.appendChild(document.createTextNode(item.val().log));
+      // logsLampada.appendChild(li);
+    });
+    aux.reverse();
+    aux.forEach(function (i){
       var li = document.createElement('li');
-      li.appendChild(document.createTextNode(item.val().log));
+      li.appendChild(document.createTextNode(i));
       logsLampada.appendChild(li);
     });
   });
 
   firebase.database().ref('porta_log').on('value', function(snapshot){
     logsPorta.innerHTML = '';
+    var aux = [];
     snapshot.forEach(function (item){
+      aux.push(item.val().log);
+      // var li = document.createElement('li');
+      // li.appendChild(document.createTextNode(item.val().log));
+      // logsPorta.appendChild(li);
+    });
+    aux.reverse();
+    aux.forEach(function (i){
       var li = document.createElement('li');
-      li.appendChild(document.createTextNode(item.val().log));
+      li.appendChild(document.createTextNode(i));
       logsPorta.appendChild(li);
     });
   });
